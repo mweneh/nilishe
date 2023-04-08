@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   describe "model should have secure password" do
     it { should have_secure_password }
   end
+  
   describe "email data validations" do
 
     describe "email in-built validators" do
@@ -23,6 +24,14 @@ RSpec.describe User, type: :model do
         expect(valid_mail.errors[:base]).to_not include(email_error)
       end
     end
+  
+  end
+
+  describe "username data validations" do
+
+    it { is_expected.to validate_presence_of(:username) }
+    it { is_expected.to validate_uniqueness_of(:username) }
+    it { is_expected.to validate_length_of(:username).is_at_least(6) }
   
   end
 
