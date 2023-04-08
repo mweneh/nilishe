@@ -1,1 +1,1 @@
-JWT_SECRET: random_string
+JWT_SECRET: 'ngori'
