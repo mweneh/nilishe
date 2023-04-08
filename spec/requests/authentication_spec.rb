@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'json'
 
 RSpec.describe AuthenticationController,  type: :controller do
 
@@ -22,10 +23,12 @@ RSpec.describe AuthenticationController,  type: :controller do
         encoded_data = @controller.encode_data(payload)
         decoded_data = @controller.decode_data(encoded_data)
         puts payload
-        puts decoded_data
-        expect(decoded_data["data"]["age"]).to eq(payload[:data][:age])
-        expect(decoded_data["data"]["name"]).to eq(payload[:data][:name])
-        expect(decoded_data["data"]["type"]).to eq(payload[:data][:type])
+        data = decoded_data.first
+        
+        # expect(decoded_data["data"]).to be_a(Hash)
+        expect(data["data"]["age"]).to eq(payload[:data][:age])
+        expect(data["data"]["name"]).to eq(payload[:data][:name])
+        expect(data["data"]["type"]).to eq(payload[:data][:type])
       end
 
   end
