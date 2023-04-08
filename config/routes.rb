@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   post "/auth/create_account", to: "authentication#register_user"
   post "/auth/login", to: "authentication#login_user"
 
+   # recipe routes
+   post "/recipe/create", to: "recipe#create_recipe"
+   put "/recipe/update/:id", to: "recipe#update_recipe"
+   delete "/recipe/delete/:id", to: "recipe#delete_recipe"
 end
