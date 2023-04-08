@@ -15,4 +15,8 @@ SECRET_KEY = ENV['JWT_SECRET']
       nil
     end
   end
+
+  def not_found(message)
+    app_response(status: 404, message: message)
+  end
 end
