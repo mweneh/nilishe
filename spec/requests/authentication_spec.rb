@@ -7,6 +7,26 @@ RSpec.describe AuthenticationController,  type: :controller do
     it { is_expected.to respond_to(:register_user) }
   end
 
+  # spec to test JWT encoding
+  describe ApplicationController, type: :controller do
+      # dummy user data
+      user_data = { name: "rutubishi", type: "admin", age: 18 }
+      payload = { data: user_data }
+  
+      describe "Controller has valid methods " do
+        it { is_expected.to respond_to(:encode_data) }
+        it { is_expected.to respond_to(:decode_data) }
+      end
+  
+      it "should encode data into hashed JWT" do
+        encoded_data = @controller.encode_data(payload)
+        decoded_data = @controller.decode_data(encoded_data)
+        expect(decoded_data["data"]["age"]).to eq(payload[:data][:age])
+        expect(decoded_data["data"]["name"]).to eq(payload[:data][:name])
+        expect(decoded_data["data"]["type"]).to eq(payload[:data][:type])
+      end
+
+  end
   # Specs to check whether login and create account operations
   describe "Authentication", type: :request do
 
