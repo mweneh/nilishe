@@ -92,3 +92,6 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+# require the common folder for data loading
+require 'require_all'
+require_all 'spec/common'
