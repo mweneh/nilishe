@@ -1,2 +1,3 @@
 class MealCategory < ApplicationRecord
-end
+    has_many :meals
+  end
