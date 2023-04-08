@@ -14,6 +14,11 @@ class AuthenticationController < ApplicationController
     user = User.create(username: auth_params[:username], email: auth_params[:email], password: auth_params[:pass])
     user.valid? ? account_created(token: create_token(user)) : account_created(failed: true, errors: user.errors)
   end
+
+   # authenticate user
+ def is_authorized?
+  !!user_data ? @user_info = retrieve_user_info : unauthorized_user
+end
   
     private
     # create JWT token with user data
