@@ -48,5 +48,22 @@ class AuthenticationController < ApplicationController
                  body: token)
   end
   
-  
+  private
+  # get user data from token
+  def user_data
+    auth_header = request.headers['Authorization']
+    token = auth_header ? auth_header.split(' ').last : nil.to_s
+    decoded_info = decode_data(token)
+    !!decoded_info ? decoded_info[0]["data"] : nil
+  end
+
+  # @api unauthorized user response
+  def unauthorized_user
+    app_response(status: :unauthorized, message: "You are not authorized to perform that operation")
+  end
+
+ # retrieve user data from DB
+  def retrieve_user_info(username: user_data["username"])
+    User.find_by(username: username)
+  end
   end
