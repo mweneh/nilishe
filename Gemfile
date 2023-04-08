@@ -39,6 +39,9 @@ gem "bootsnap", require: false
 # Use JWT to authorize requests to our application.
 gem 'jwt', '~> 2.5'
 
+# ruby gem for require all
+gem 'require_all', '~> 3.0'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
