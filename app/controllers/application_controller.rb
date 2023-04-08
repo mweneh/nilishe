@@ -21,10 +21,10 @@ SECRET_KEY = ENV['JWT_SECRET']
   end
 
   def app_response(status: 200, message: nil, body: nil)
-    render json: {
-       status: status,
-       message: message,
-       body: body
-   }, status: status
-  end
+  render json: {
+     status: status,
+     message: message,
+     body: body
+ }, status: status
+end
 end
