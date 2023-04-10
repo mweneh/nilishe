@@ -16,7 +16,7 @@ RSpec.describe AuthenticationController,  type: :controller do
 
     it "handles account creation properly" do
       # create account route
-      create_account = auth[0]
+      create_account = r_auth[0]
 
       # no params
       post create_account, headers: headers
@@ -39,7 +39,7 @@ RSpec.describe AuthenticationController,  type: :controller do
     it "handles account sign in properly" do
 
       # login account URL
-      login_account = auth[1]
+      login_account = r_auth[1]
 
       # create a user account
       User.create(username: user_credentials[:username], email: user_credentials[:email],
