@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe RecipeController,  type: :controller do
+RSpec.describe "Recipes", type: :request do
   include UserTestData, RoutesTestData, RecipeTestData
   # check for valid methods in the controller
   describe RecipeController, type: :controller do
@@ -20,7 +20,7 @@ RSpec.describe RecipeController,  type: :controller do
                   password: user_credentials[:pass])
 
       # login user
-      post r_auth[1], params: user_credentials , headers: headers
+      post r_auth[1], params: user_credentials , headers:headers
       auth_token = JSON.parse(response.body)["body"]["authToken"]
       token_header = headers_with_token(auth_token)
 
