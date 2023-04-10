@@ -14,11 +14,6 @@ class AuthenticationController < ApplicationController
     user = User.create(username: auth_params[:username], email: auth_params[:email], password: auth_params[:pass])
     user.valid? ? account_created(token: create_token(user)) : account_created(failed: true, errors: user.errors)
   end
-
-   # authenticate user
- def is_authorized?
-  !!user_data ? @user_info = retrieve_user_info : unauthorized_user
-end
   
     private
     # create JWT token with user data
@@ -51,24 +46,5 @@ end
     app_response(status: failed ? :unprocessable_entity : :ok,
                  message: failed ? "We could not find your account" : "Login successful",
                  body: token)
-  end
-  
-  private
-  # get user data from token
-  def user_data
-    auth_header = request.headers['Authorization']
-    token = auth_header ? auth_header.split(' ').last : nil.to_s
-    decoded_info = decode_data(token)
-    !!decoded_info ? decoded_info[0]["data"] : nil
-  end
-
-  # @api unauthorized user response
-  def unauthorized_user
-    app_response(status: :unauthorized, message: "You are not authorized to perform that operation")
-  end
-
- # retrieve user data from DB
-  def retrieve_user_info(username: user_data["username"])
-    User.find_by(username: username)
   end
   end
