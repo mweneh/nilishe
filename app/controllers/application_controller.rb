@@ -20,13 +20,14 @@ SECRET_KEY = ENV['JWT_SECRET']
     app_response(status: 404, message: message)
   end
 
-  def app_response(status: 200, message: nil, body: nil)
-  render json: {
-     status: status,
-     message: message,
-     body: body
- }, status: status
-end
+  def app_response(status: 200, message: nil, body: nil, serializer: nil, serializer_key: nil)
+    render json: {
+      status: status,
+      message: message,
+      body: serializer ? 
+              ActiveModelSerializers::SerializableResource.new(body[serializer_key], serializer: serializer) : body
+    }, status: status
+  end
  # authenticate user
  def is_authorized?
   !!user_data ? @user_info = retrieve_user_info : unauthorized_user
