@@ -24,5 +24,7 @@ module RoutesTestData
       tmp_headers
     end
   
-  
+    def r_recipe(rid: 0, q: nil)
+      %W[/recipe/create /recipe/update/#{rid} /recipe/delete/#{rid} /recipe/all /recipe/all/#{q}]
+    end
   end
