@@ -25,8 +25,7 @@ class RecipeController < ApplicationController
       app_response(
         status: success ? :created : :unprocessable_entity,
         message: success ? "Recipe has been created!" : "Could not create recipe",
-        body: { :recipe => recipe},
-        serializer: RecipeSerializer,
+        body: success ? { :recipe => serialize_data(recipe, RecipeSerializer)} : nil,
         serializer_key: :recipe
       )
     end
@@ -35,8 +34,7 @@ class RecipeController < ApplicationController
       app_response(
         status: success ? :ok : :unprocessable_entity,
         message: success ? "Recipe has been updated!" : "Could not update recipe",
-        body: { :recipe => recipe},
-        serializer: RecipeSerializer,
+        body: success ? { :recipe => serialize_data(recipe, RecipeSerializer)} : nil,
         serializer_key: :recipe
       )
     end
