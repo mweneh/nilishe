@@ -53,4 +53,13 @@ class RecipeController < ApplicationController
         message: success ? "Recipe has been deleted!" : "Could not delete recipe"
         )
     end
+
+    def display_recipes(recipes)
+      app_response(
+        status: :ok,
+        message: "Recipes data",
+        body: { :recipes => recipes },
+        serializer_key: :recipes
+      )
+    end
 end
