@@ -17,12 +17,16 @@ class RecipeController < ApplicationController
       end
 
       def fetch_recipes
+        recipes = Recipe.order('updated_at DESC ').all.map { |recipe| serialize_data(recipe, RecipeSerializer)   }
+        display_recipes(recipes)
+    end
     
-      end
-      
-      def search_recipes
-        
-      end
+    def search_recipes
+        recipes = Recipe.where(["title LIKE '%':query'%' OR description LIKE '%':query'%'",
+                                { :query => request[:q] }])
+                        .order('updated_at DESC').map { |recipe| serialize_data(recipe, RecipeSerializer)  }
+        display_recipes(recipes)
+    end
     private
 
     def recipe_params
