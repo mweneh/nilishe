@@ -51,5 +51,27 @@ RSpec.describe "Recipes", type: :request do
 
     end
 
+        # display all the recipes in database / search for a meal
+    it "lists recipes" do
+
+      user = dummy_user
+      # create two recipes
+      dummy_recipe(user: user)
+      dummy_recipe(user: user)
+
+      # login user
+      token_header = get_token_header
+
+      # view all recipes
+      get r_recipe[3], headers: token_header
+      expect(response).to have_http_status(:ok)
+      
+      # search for recipe
+      get r_recipe(q: 'ugali')[4], headers: token_header
+      expect(response).to have_http_status(:ok)
+      
+    end
+
   end
+  
 end
