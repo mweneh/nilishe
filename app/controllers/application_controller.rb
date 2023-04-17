@@ -33,6 +33,11 @@ SECRET_KEY = ENV['JWT_SECRET']
   !!user_data ? @user_info = retrieve_user_info : unauthorized_user
 end
 
+ # @api common serializer function
+ def serialize_data(input, serializer)
+  ActiveModelSerializers::SerializableResource.new(input, serializer: serializer)
+end
+
 private
 # get user data from token
 def user_data
