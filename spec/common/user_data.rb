@@ -8,4 +8,8 @@ module UserTestData
       { :username => "hi", :email => "app", :pass => "123456" }
     end
   
+    def dummy_user
+      User.create(username: user_credentials[:username], 
+                  email: user_credentials[:email], password: user_credentials[:pass])
+    end
   end

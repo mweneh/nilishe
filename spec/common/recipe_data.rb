@@ -14,4 +14,7 @@ module RecipeTestData
       }
     end
   
+    def dummy_recipe(user: nil)
+      user.is_a?(User) ? user.recipes.create(recipe_data) : nil
+    end
   end
