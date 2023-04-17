@@ -15,6 +15,14 @@ class RecipeController < ApplicationController
         recipe = @user_info.recipes.find_by(id: params[:id])
         recipe ? recipe_deleted(success: recipe.destroy ) : recipe_deleted(success: false)
       end
+
+      def fetch_recipes
+    
+      end
+      
+      def search_recipes
+        
+      end
     private
 
     def recipe_params
