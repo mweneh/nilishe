@@ -12,6 +12,40 @@ RSpec.describe "Recipes", type: :request do
 
   end
 
+     # display all the recipes in database / search for a meal
+     it "lists recipes" do
+
+      def get_auth_token
+        user = User.create(username: 'test_user', email: 'test_user@example.com', password: 'password')
+        post '/auth/login', params: { email: user.email, password: user.password }
+        JSON.parse(response.body)['auth_token']
+      end
+      
+      
+      
+      user = dummy_user
+      # create two recipes
+      dummy_recipe(user: user)
+      dummy_recipe(user: user)
+
+      # set the authentication token in the request headers
+token = get_auth_token
+headers = {
+  'Authorization': "Bearer #{token}",
+  'Content-Type': 'application/json'
+}
+
+# view all recipes
+get r_recipe[3], headers: headers
+expect(response).to have_http_status(:ok)
+
+# search for recipe
+get r_recipe(q: 'ugali')[4], headers: headers
+expect(response).to have_http_status(:ok)
+
+      
+    end
+
   describe "Recipe controller requests" do
 
     it "creates, updates and deletes recipes appropriately" do
@@ -50,27 +84,7 @@ RSpec.describe "Recipes", type: :request do
       expect(response).to have_http_status(:unprocessable_entity)
 
     end
-
-        # display all the recipes in database / search for a meal
-    it "lists recipes" do
-
-      user = dummy_user
-      # create two recipes
-      dummy_recipe(user: user)
-      dummy_recipe(user: user)
-
-      # login user
-      token_header = get_token_header
-
-      # view all recipes
-      get r_recipe[3], headers: token_header
-      expect(response).to have_http_status(:ok)
-      
-      # search for recipe
-      get r_recipe(q: 'ugali')[4], headers: token_header
-      expect(response).to have_http_status(:ok)
-      
-    end
+    
 
   end
   
